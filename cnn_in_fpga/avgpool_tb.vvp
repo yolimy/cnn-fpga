@@ -1,0 +1,97 @@
+#! /usr/local/Cellar/icarus-verilog/11.0/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 9;
+:vpi_module "/usr/local/Cellar/icarus-verilog/11.0/lib/ivl/system.vpi";
+:vpi_module "/usr/local/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/local/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/local/Cellar/icarus-verilog/11.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/usr/local/Cellar/icarus-verilog/11.0/lib/ivl/va_math.vpi";
+S_0x7fef7c205d40 .scope module, "avgpool_tb" "avgpool_tb" 2 4;
+ .timescale -9 -9;
+v0x600000ed4480_0 .net "average", 3 0, v0x600000ed4120_0;  1 drivers
+v0x600000ed4510_0 .var "clk", 0 0;
+v0x600000ed45a0_0 .var "pixel1", 3 0;
+v0x600000ed4630_0 .var "pixel2", 3 0;
+v0x600000ed46c0_0 .var "pixel3", 3 0;
+v0x600000ed4750_0 .var "pixel4", 3 0;
+S_0x7fef7c204760 .scope module, "uut2" "avgpool" 2 13, 3 1 0, S_0x7fef7c205d40;
+ .timescale -9 -9;
+    .port_info 0 /INPUT 1 "clk";
+    .port_info 1 /INPUT 4 "pixel1";
+    .port_info 2 /INPUT 4 "pixel2";
+    .port_info 3 /INPUT 4 "pixel3";
+    .port_info 4 /INPUT 4 "pixel4";
+    .port_info 5 /OUTPUT 4 "average";
+v0x600000ed4120_0 .var "average", 3 0;
+v0x600000ed41b0_0 .net "clk", 0 0, v0x600000ed4510_0;  1 drivers
+v0x600000ed4240_0 .net "pixel1", 3 0, v0x600000ed45a0_0;  1 drivers
+v0x600000ed42d0_0 .net "pixel2", 3 0, v0x600000ed4630_0;  1 drivers
+v0x600000ed4360_0 .net "pixel3", 3 0, v0x600000ed46c0_0;  1 drivers
+v0x600000ed43f0_0 .net "pixel4", 3 0, v0x600000ed4750_0;  1 drivers
+E_0x6000032dcae0 .event posedge, v0x600000ed41b0_0;
+    .scope S_0x7fef7c204760;
+T_0 ;
+    %wait E_0x6000032dcae0;
+    %load/vec4 v0x600000ed4240_0;
+    %pad/u 32;
+    %load/vec4 v0x600000ed42d0_0;
+    %pad/u 32;
+    %add;
+    %load/vec4 v0x600000ed4360_0;
+    %pad/u 32;
+    %add;
+    %load/vec4 v0x600000ed43f0_0;
+    %pad/u 32;
+    %add;
+    %pushi/vec4 4, 0, 32;
+    %div;
+    %pad/u 4;
+    %assign/vec4 v0x600000ed4120_0, 0;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0x7fef7c205d40;
+T_1 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600000ed4510_0, 0, 1;
+    %end;
+    .thread T_1;
+    .scope S_0x7fef7c205d40;
+T_2 ;
+    %delay 1, 0;
+    %load/vec4 v0x600000ed4510_0;
+    %inv;
+    %assign/vec4 v0x600000ed4510_0, 0;
+    %jmp T_2;
+    .thread T_2;
+    .scope S_0x7fef7c205d40;
+T_3 ;
+    %vpi_call 2 20 "$dumpfile", "avgpool_tb.vcd" {0 0 0};
+    %vpi_call 2 21 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x7fef7c205d40 {0 0 0};
+    %pushi/vec4 1, 0, 4;
+    %store/vec4 v0x600000ed4750_0, 0, 4;
+    %pushi/vec4 2, 0, 4;
+    %store/vec4 v0x600000ed46c0_0, 0, 4;
+    %pushi/vec4 3, 0, 4;
+    %store/vec4 v0x600000ed4630_0, 0, 4;
+    %pushi/vec4 4, 0, 4;
+    %store/vec4 v0x600000ed45a0_0, 0, 4;
+    %delay 2, 0;
+    %pushi/vec4 10, 0, 4;
+    %store/vec4 v0x600000ed4750_0, 0, 4;
+    %pushi/vec4 9, 0, 4;
+    %store/vec4 v0x600000ed46c0_0, 0, 4;
+    %pushi/vec4 8, 0, 4;
+    %store/vec4 v0x600000ed4630_0, 0, 4;
+    %pushi/vec4 7, 0, 4;
+    %store/vec4 v0x600000ed45a0_0, 0, 4;
+    %delay 2, 0;
+    %vpi_call 2 37 "$display", "Test complete!" {0 0 0};
+    %end;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "avgpool_tb.v";
+    "./avgpool.v";
